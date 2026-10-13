@@ -7,25 +7,19 @@ import {
   UseGuards,
   Req,
 } from '@nestjs/common';
+import type { AuthenticatedRequest } from './interfaces/authintecated-request.interface.js';
 
-import type { Request } from 'express';
 import { JwtAuthGuard } from './jwt-auth.guard.js';
 
-interface authenticatedRequest extends Request {
-  user: {
 
-    name: string;
-    email: string;
-    password: string;
-  };
-}
+
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) { }
   @Get('me')
 
   @UseGuards(JwtAuthGuard)
-  getProfile(@Req() request: authenticatedRequest) {
+  getProfile(@Req() request: AuthenticatedRequest) {
     return request.user;
   }
 
