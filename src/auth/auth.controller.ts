@@ -7,9 +7,10 @@ import {
   UseGuards,
   Req,
 } from '@nestjs/common';
-import type { AuthenticatedRequest } from './interfaces/authintecated-request.interface.js';
+import type { AuthenticatedRequest } from './interfaces/authenticated-request.interface.js';
 
 import { JwtAuthGuard } from './jwt-auth.guard.js';
+import { CurrentUser } from './decorator/current-user.decorator.js';
 
 
 
@@ -19,7 +20,7 @@ export class AuthController {
   @Get('me')
 
   @UseGuards(JwtAuthGuard)
-  getProfile(@Req() request: AuthenticatedRequest) {
+  getProfile(@CurrentUser() request: AuthenticatedRequest) {
     return request.user;
   }
 
